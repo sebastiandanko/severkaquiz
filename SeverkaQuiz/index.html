@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Severka Zoologie - Mladší / Starší</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Uvítací obrazovka -->
+        <div id="welcome-screen" class="screen active">
+            <header class="header">
+                <h1>Zoologie Kvíz</h1>
+                <div class="difficulty-toggle">
+                    <span class="toggle-label">Mladší</span>
+                    <label class="switch">
+                        <input type="checkbox" id="difficulty-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">Starší</span>
+                </div>
+            </header>
+            
+            <main class="welcome-content">
+                <div class="description">
+                    <h2>Otestuj svoje znalosti o zvířatech</h2>
+                    <p>Vyber si úroveň obtížnosti a pusť se do kvízu! Čeká tě poznávání zvířat, otázky na rozdíly, detailní informace o vybraných druzích, poznávání stop a teoretický test.</p>
+                    
+                    <div class="requirements">
+                        <h3>Požadavky pro splnění:</h3>
+                        <div id="mladsi-requirements" class="requirements-list">
+                            <p> Poznávání zvířat: 23/30 správně</p>
+                            <p> Teoretický test: 75% úspěšnost</p>
+                        </div>
+                        <div id="starsi-requirements" class="requirements-list" style="display: none;">
+                            <p> Poznávání zvířat: 27/30 správně</p>
+                            <p> Teoretický test: 75% úspěšnost</p>
+                            <p> Systematické znalosti</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="start-quiz" class="btn btn-primary">Začít kvíz</button>
+            </main>
+        </div>
+
+        <!-- Sekce Kvízu -->
+        <div id="quiz-sections" class="screen">
+            <header class="header">
+                <h1>Zoologický kvíz</h1>
+                <div class="progress">
+                    <span id="current-section">1/5</span>
+                </div>
+            </header>
+
+            <!-- Poznávačka zvířat -->
+            <div id="animal-recognition" class="quiz-section">
+                <h2>Poznávání zvířat</h2>
+                <div class="question-container">
+                    <img id="animal-image" src="" alt="Zvíře" class="animal-image">
+                    <div class="answer-input">
+                        <input type="text" id="animal-name-input" placeholder="Napiš název zvířete">
+                        <button id="check-animal" class="btn">Ověřit</button>
+                    </div>
+                    <div id="animal-feedback" class="feedback"></div>
+                </div>
+                <div class="navigation">
+                    <button id="prev-animal" class="btn btn-secondary">Předchozí</button>
+                    <span id="animal-counter">1/30</span>
+                    <button id="next-animal" class="btn btn-primary">Další</button>
+                </div>
+            </div>
+
+            <!-- Rozdíly zvířat -->
+            <div id="differences" class="quiz-section" style="display: none;">
+                <h2>Rozdíly mezi zvířaty</h2>
+                <div class="comparison-container">
+                    <div class="animal-comparison">
+                        <img id="animal1-image" src="" alt="Zvíře 1">
+                        <span id="animal1-name"></span>
+                    </div>
+                    <div class="animal-comparison">
+                        <img id="animal2-image" src="" alt="Zvíře 2">
+                        <span id="animal2-name"></span>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3 id="difference-question"></h3>
+                    <div id="difference-options" class="options"></div>
+                </div>
+                <div class="navigation">
+                    <button id="prev-difference" class="btn btn-secondary">Předchozí</button>
+                    <span id="difference-counter">1/3</span>
+                    <button id="next-difference" class="btn btn-primary">Další</button>
+                </div>
+            </div>
+
+            <!-- Podrobné otázky (Není hotovo) -->
+            <div id="detailed-questions" class="quiz-section" style="display: none;">
+                <h2>Podrobné otázky</h2>
+                <div class="animal-details">
+                    <img id="detailed-animal-image" src="" alt="Zvíře">
+                    <h3 id="detailed-animal-name"></h3>
+                </div>
+                <div class="question-container">
+                    <h3 id="detailed-question-text"></h3>
+                    <div id="detailed-options" class="options"></div>
+                </div>
+                <div class="navigation">
+                    <button id="prev-detailed" class="btn btn-secondary">Předchozí</button>
+                    <span id="detailed-counter">1/9</span>
+                    <button id="next-detailed" class="btn btn-primary">Další</button>
+                </div>
+            </div>
+
+            <!-- Poznávání stop -->
+            <div id="track-recognition" class="quiz-section" style="display: none;">
+                <h2>Poznávání stop</h2>
+                <div class="question-container">
+                    <img id="track-image" src="" alt="Stopa" class="track-image">
+                    <h3>Kterému zvířeti patří tato stopa?</h3>
+                    <div id="track-options" class="options"></div>
+                </div>
+                <div class="navigation">
+                    <button id="prev-track" class="btn btn-secondary">Předchozí</button>
+                    <span id="track-counter">1/5</span>
+                    <button id="next-track" class="btn btn-primary">Další</button>
+                </div>
+            </div>
+
+            <!-- Teoretická část testu, Otázky jsou moc jednoduché, opravit. -->
+            <div id="theory-test" class="quiz-section" style="display: none;">
+                <h2>Teoretický test</h2>
+                <div class="question-container">
+                    <h3 id="theory-question-text"></h3>
+                    <div id="theory-options" class="options"></div>
+                </div>
+                <div class="navigation">
+                    <button id="prev-theory" class="btn btn-secondary">Předchozí</button>
+                    <span id="theory-counter">1/15</span>
+                    <button id="next-theory" class="btn btn-primary">Další</button>
+                </div>
+            </div>
+
+            <!-- Sekce Navigace -->
+            <div class="section-navigation">
+                <button id="prev-section" class="btn btn-secondary">Předchozí část</button>
+                <button id="next-section" class="btn btn-primary">Další část</button>
+            </div>
+        </div>
+
+        <!-- Výsledky Kvízu -->
+        <div id="results-screen" class="screen">
+            <header class="header">
+                <h1>Výsledky kvízu</h1>
+            </header>
+            
+            <main class="results-content">
+                <div class="score-summary">
+                    <h2 id="result-title"></h2>
+                    <div class="score-breakdown">
+                        <div class="score-item">
+                            <span>Poznávání zvířat:</span>
+                            <span id="animal-score">0/30</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Rozdíly:</span>
+                            <span id="difference-score">0/3</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Podrobné otázky:</span>
+                            <span id="detailed-score">0/9</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Poznávání stop:</span>
+                            <span id="track-score">0/5</span>
+                        </div>
+                        <div class="score-item">
+                            <span>Teoretický test:</span>
+                            <span id="theory-score">0/15</span>
+                        </div>
+                    </div>
+                    
+                    <div class="total-score">
+                        <h3>Celkové hodnocení:</h3>
+                        <p id="final-result"></p>
+                        <p id="requirements-check"></p>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button id="restart-quiz" class="btn btn-primary">Zopakovat kvíz</button>
+                    <button id="back-to-welcome" class="btn btn-secondary">Zpět na úvod</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="./data/quiz-data.js"></script>
+    <script src="./js/quiz-logic.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
